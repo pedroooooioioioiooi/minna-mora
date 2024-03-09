@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E aí?</title>
+    <link rel="stylesheet" href="src/css/estilo.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+
+        body {
+            background-color: #f4d4e4 !important;
+            margin: 0;
+            padding: 0;
+            font-family: "Madimi One", sans-serif !important;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        div.btnContainer {
+            display: none; /* Esconde os botões inicialmente */
+            align-items: center;
+            justify-content: center;
+            animation: fadeInButtons 2s ease-in-out forwards; /* Animação de fade in para os botões */
+        }
+
+        #nao {
+            position: relative;
+        }
+
+        @keyframes fadeInButtons {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .heart {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            animation: heartAnimation 5s linear forwards; /* Animação para o coração */
+        }
+
+        @keyframes heartAnimation {
+            0% { 
+                top: -10px;
+                opacity: 1;
+            }
+            100% { 
+                top: 100%;
+                opacity: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 id="title" style="text-align: center; margin-top: 80px; font-size: 2.90rem; opacity: 0;">Eaí, namora comigo?</h1>
+    <p id="subtitle" style="text-align: center; opacity: 0;">É meme ta? (Ou não)</p>
+
+    <div class="btnContainer">
+        <button onclick="aceitouSim()" style="margin-right: 2px;" id="sim" class="btn btn-lg btn-outline-dark">Sim</button>
+        <button style="margin-left: 2px;" id="nao" class="btn btn-lg btn-outline-dark">Não</button>
+    </div>
+
+    <audio id="audio" autoplay>
+        <source src="src/trilha.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <div id="alertContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="alert" class="alert alert-danger alert-dismissible fade" role="alert">
+            <strong>Parabéns!</strong> ASDJHFOIHiohIOHB ❤❤❤❤❤❤❤❤❤❤❤❤
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        const title = document.getElementById('title');
+        const subtitle = document.getElementById('subtitle');
+
+        setTimeout(() => {
+            title.style.opacity = '1';
+            subtitle.style.opacity = '1';
+        }, 2000);
+
+        setTimeout(() => {
+            const buttonContainer = document.querySelector('.btnContainer');
+            buttonContainer.style.display = 'flex';
+        }, 4000);
+        setInterval(createHeart, 1000);
+
+
+        const naoButton = document.getElementById('nao');
+
+        naoButton.addEventListener('mouseover', () => {
+            naoButton.style.position = 'absolute';
+            naoButton.style.top = Math.random() * window.innerHeight + 'px';
+            naoButton.style.left = Math.random() * window.innerWidth + 'px';
+        });
+
+        document.getElementById('sim').addEventListener('click', function() {
+            document.getElementById('alert').classList.add('show');
+
+            const audio = document.getElementById('audio');
+            audio.currentTime = 0; // Volta para o início do áudio
+            audio.play();
+        });
+    </script>
+</body>
+
+</html>
